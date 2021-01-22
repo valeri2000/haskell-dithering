@@ -17,6 +17,6 @@ generalDithering img neigh = Image (rows img) (cols img) $ help 0 0 neigh (head 
                     | otherwise = help x (y + 1) errors (tail row) rows ((Pixel newColor newColor newColor) : res) (updateErrors (updateMatrix errorMatrix 0 (x `mod` 3) y) errors currError x y)
                                  where elem = head row
                                        elemColor = clamp0255((r elem) + errorMatrix!!(x `mod` 3)!!y) -- RESET TO 0
-                                       newColor = if elemColor > 128 then 255 else 0
+                                       newColor = if elemColor > 127 then 255 else 0
                                        currError = elemColor - newColor
 --newRes = res ++ [Pixel newColor newColor newColor]

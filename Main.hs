@@ -12,6 +12,8 @@ import IOFunctions
 import BaseDithering ( generalDithering )
 import AlgoNeighbours ()
 import AlgoHandler ( algoNames, getMatchingError)
+import OrderedDithering
+import BayerMatrices
 
 -- '<-' for io things
 -- other pure things 'let'
@@ -39,15 +41,17 @@ inputHandler = do
                 putStrLn "\nEnter output file name (same extension as input): "
                 outputName <- getLine
 
-                if isPPM fileName && isPPM outputName
-                    then saveImagePPM outputName $ generalDithering (grayscale $ readPPM $ lines content) algoErrors
-                        else 
-                            if isPGM fileName && isPGM outputName
-                                then saveImagePGM outputName $ generalDithering (grayscale $ readPGM $ lines content) algoErrors
-                                else 
-                                if isPBM fileName && isPBM outputName
-                                    then saveImagePBM outputName $ generalDithering (grayscale $ readPBM $ lines content) algoErrors
-                                    else putStrLn "Invalid output file name!"
+                saveImagePPM outputName $ orderedDithering (grayscale $ readPPM $ lines content) bayer4x4 4
+
+                -- if isPPM fileName && isPPM outputName
+                --     then saveImagePPM outputName $ generalDithering (grayscale $ readPPM $ lines content) algoErrors
+                --         else 
+                --             if isPGM fileName && isPGM outputName
+                --                 then saveImagePGM outputName $ generalDithering (grayscale $ readPGM $ lines content) algoErrors
+                --                 else 
+                --                 if isPBM fileName && isPBM outputName
+                --                     then saveImagePBM outputName $ generalDithering (grayscale $ readPBM $ lines content) algoErrors
+                --                     else putStrLn "Invalid output file name!"
                 
                 putStrLn "\nSuccess! Check output file!"
 
