@@ -5,7 +5,7 @@ import Utils ( isPPM, isPBM, isPGM, grayscale )
 import IOFunctions ( readPPM, readPGM, readPBM, saveImagePPM )
 import BaseDithering ( generalDithering )
 import AlgoNeighbours ()
-import AlgoHandler ( algoNames, getMatchingError )
+import AlgoHandler ( algoNames, getMatchingError)
 
 -- '<-' for io things
 -- other pure things 'let'
@@ -13,8 +13,12 @@ inputHandler :: IO ()
 inputHandler = do  
     putStrLn "Enter input file name (.ppm, .pgm or .pbm): "
     fileName <- getLine
-    content <- readFile fileName
 
+    if not (isPPM fileName) && not (isPBM fileName) && not (isPGM fileName)
+        then putStrLn "Invalid input file name!"
+            else do
+
+    content <- readFile fileName
     putStrLn "\nAvailable algorithms:"
     putStrLn algoNames
     putStrLn "Enter wanted algorithm number: "
@@ -22,18 +26,24 @@ inputHandler = do
 
     let algoErrors = getMatchingError (read algoNumber)
 
-    putStrLn "\nEnter output file name (same extension as input): "
-    outputName <- getLine
+    if null algoErrors
+        then putStrLn "Invalid algorithm!"
+            else
+                do
+                putStrLn "\nEnter output file name (same extension as input): "
+                outputName <- getLine
 
-    if isPPM fileName && isPPM outputName
-        then saveImagePPM outputName $ generalDithering (grayscale $ readPPM $ lines content) algoErrors
-            else 
-                if isPGM fileName && isPGM outputName
-                    then saveImagePPM outputName $ generalDithering (grayscale $ readPGM $ lines content) algoErrors
-                    else 
-                       if isPBM fileName && isPBM outputName
-                           then saveImagePPM outputName $ generalDithering (grayscale $ readPBM $ lines content) algoErrors
-                           else putStrLn "Invalid input/output file format!"
+                if isPPM fileName && isPPM outputName
+                    then saveImagePPM outputName $ generalDithering (grayscale $ readPPM $ lines content) algoErrors
+                        else 
+                            if isPGM fileName && isPGM outputName
+                                then saveImagePPM outputName $ generalDithering (grayscale $ readPGM $ lines content) algoErrors
+                                else 
+                                if isPBM fileName && isPBM outputName
+                                    then saveImagePPM outputName $ generalDithering (grayscale $ readPBM $ lines content) algoErrors
+                                    else putStrLn "Invalid output file name!"
+                
+                putStrLn "\nSuccess! Check output file!"
 
 main :: IO ()
 main = inputHandler
