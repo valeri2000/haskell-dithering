@@ -76,8 +76,6 @@ updateMatrix m value r c =
   [take c (m !! r) ++ [value] ++ drop (c + 1) (m !! r)] ++
   drop (r + 1) m
 
-reverseList xs = foldl (\x y -> y:x) [] xs 
-
 updateErrors :: [[Int]] -> [Error] -> Int -> Int -> Int -> [[Int]]
 updateErrors matrix [] value x y = matrix
 updateErrors matrix (curr:errors) value x y

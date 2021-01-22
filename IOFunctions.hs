@@ -4,7 +4,6 @@ import MyTypes ( Image(..), Pixel(Pixel) )
 import Utils
     ( chunks,
       convertAllToStrings,
-      reverseList,
       stringToPixel,
       stringToSize,
       whiteBlackToPixel )
@@ -12,7 +11,7 @@ import Utils
 readPPM :: [String] -> Image
 readPPM content = help content 0 0 []
     where help content rows cols pixelList
-            | null content = if rows > 0 && cols > 0 then Image rows cols (chunks cols $ reverseList pixelList) else NullImage
+            | null content = if rows > 0 && cols > 0 then Image rows cols (chunks cols $ reverse pixelList) else NullImage
             | length curr == 0 = help left rows cols pixelList
             | curr == "P3" = help left rows cols pixelList
             | cols == 0 = help (tail left) (fst $ stringToSize curr) (snd $ stringToSize curr) pixelList
