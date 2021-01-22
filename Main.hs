@@ -15,14 +15,14 @@ inputHandler = do
     fileName <- getLine
     content <- readFile fileName
 
-    putStrLn "Available algorithms:"
+    putStrLn "\nAvailable algorithms:"
     putStrLn algoNames
     putStrLn "Enter wanted algorithm number: "
     algoNumber <- getLine
 
     let algoErrors = getMatchingError (read algoNumber)
 
-    putStrLn "Enter output file name (same extension as input): "
+    putStrLn "\nEnter output file name (same extension as input): "
     outputName <- getLine
 
     if isPPM fileName && isPPM outputName
