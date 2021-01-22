@@ -33,11 +33,19 @@ whiteBlackToPixel :: Int -> Pixel
 whiteBlackToPixel value = Pixel conv conv conv
     where conv = 255 * (1 - value)
 
-pixelToString :: Pixel -> String
-pixelToString Pixel {r = rr, g = gg, b = bb} = (show rr) ++ " " ++ (show gg) ++ " " ++ (show bb)
+ppmPixelToString :: Pixel -> String
+ppmPixelToString Pixel {r = rr, g = gg, b = bb} = (show rr) ++ " " ++ (show gg) ++ " " ++ (show bb)
 
-convertAllToStrings :: [[Pixel]] -> [String]
-convertAllToStrings arr = [pixelToString x | x <- (concat arr)]
+pgmPixelToString :: Pixel -> String
+pgmPixelToString Pixel {r = rr, g = gg, b = bb} = (show rr)
+
+pbmPixelToString :: Pixel -> String
+pbmPixelToString Pixel {r = rr, g = gg, b = bb} = if rr == 0 then "1" else "0"
+
+convertAllToStrings :: [[Pixel]] -> String -> [String]
+convertAllToStrings arr "PPM" = [ppmPixelToString x | x <- (concat arr)]
+convertAllToStrings arr "PGM" = [pgmPixelToString x | x <- (concat arr)]
+convertAllToStrings arr "PBM" = [pbmPixelToString x | x <- (concat arr)]
 
 pixelToGrayscale :: Pixel -> Pixel
 pixelToGrayscale (Pixel red green blue) = Pixel {

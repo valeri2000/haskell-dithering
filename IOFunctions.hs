@@ -3,11 +3,11 @@ module IOFunctions where
 import MyTypes ( Image(..), Pixel(Pixel) )
 import Utils
     ( chunks,
+      convertAllToStrings,
+      reverseList,
       stringToPixel,
       stringToSize,
-      whiteBlackToPixel,
-      convertAllToStrings,
-      reverseList )
+      whiteBlackToPixel )
 
 readPPM :: [String] -> Image
 readPPM content = help content 0 0 []
@@ -47,4 +47,13 @@ readPBM content = help content 0 0 []
 
 saveImagePPM :: FilePath -> Image -> IO ()
 saveImagePPM path (Image {rows = h, cols = w, pixels = c}) = 
-  writeFile path (unlines (["P3", show w, show h, "255"] ++ (convertAllToStrings c)))
+  writeFile path (unlines (["P3", show w, show h, "255"] ++ (convertAllToStrings c "PPM")))
+
+saveImagePBM :: FilePath -> Image -> IO ()
+saveImagePBM path (Image {rows = h, cols = w, pixels = c}) = 
+  writeFile path (unlines (["P1", show w, show h] ++ (convertAllToStrings c "PBM")))
+
+saveImagePGM :: FilePath -> Image -> IO ()
+saveImagePGM path (Image {rows = h, cols = w, pixels = c}) = 
+  writeFile path (unlines (["P2", show w, show h, "255"] ++ (convertAllToStrings c "PGM")))
+

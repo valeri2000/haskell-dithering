@@ -2,7 +2,13 @@ module Main where
 
 import MyTypes ()
 import Utils ( isPPM, isPBM, isPGM, grayscale )
-import IOFunctions ( readPPM, readPGM, readPBM, saveImagePPM )
+import IOFunctions
+    ( readPPM,
+      readPGM,
+      readPBM,
+      saveImagePPM,
+      saveImagePBM,
+      saveImagePGM )
 import BaseDithering ( generalDithering )
 import AlgoNeighbours ()
 import AlgoHandler ( algoNames, getMatchingError)
@@ -37,10 +43,10 @@ inputHandler = do
                     then saveImagePPM outputName $ generalDithering (grayscale $ readPPM $ lines content) algoErrors
                         else 
                             if isPGM fileName && isPGM outputName
-                                then saveImagePPM outputName $ generalDithering (grayscale $ readPGM $ lines content) algoErrors
+                                then saveImagePGM outputName $ generalDithering (grayscale $ readPGM $ lines content) algoErrors
                                 else 
                                 if isPBM fileName && isPBM outputName
-                                    then saveImagePPM outputName $ generalDithering (grayscale $ readPBM $ lines content) algoErrors
+                                    then saveImagePBM outputName $ generalDithering (grayscale $ readPBM $ lines content) algoErrors
                                     else putStrLn "Invalid output file name!"
                 
                 putStrLn "\nSuccess! Check output file!"
