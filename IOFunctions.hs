@@ -22,7 +22,6 @@ readPPM content = help content 0 0 []
         curr = head content
         left = tail content
 
--- | otherwise = help (tail $ tail left) rows cols (pixelList ++ [stringToPixel (curr ++ " " ++ (head left) ++ " " ++ (head $ tail left))])
 readPGM :: [String] -> Image
 readPGM content = help content 0 0 []
   where

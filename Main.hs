@@ -17,8 +17,6 @@ import MyTypes ()
 import OrderedDithering ()
 import Utils (grayscale, isPBM, isPGM, isPPM, isStringNumb)
 
--- '<-' for io things
--- other pure things 'let'
 inputHandler :: IO ()
 inputHandler = do
   putStrLn "Enter input file name (.ppm, .pgm or .pbm): "
@@ -50,7 +48,7 @@ inputHandler = do
                     else putStrLn "Invalid output file name!"
   where
     handler :: SomeException -> IO ()
-    handler ex = putStrLn "\nInvalid content format in input image!"
+    handler ex = putStrLn "\nError while reading file! Invalid input image format!"
 
 main :: IO ()
 main = inputHandler
