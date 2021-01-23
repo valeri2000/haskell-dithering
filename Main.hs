@@ -14,7 +14,7 @@ import AlgoNeighbours ()
 import AlgoHandler ( algoNames, execAlgo )
 import OrderedDithering ()
 import BayerMatrices ()
-import Control.Exception
+import Control.Exception ( SomeException, catch )
 
 -- '<-' for io things
 -- other pure things 'let'
