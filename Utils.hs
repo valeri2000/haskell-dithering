@@ -6,6 +6,10 @@ import MyTypes
       Pixel(..) )
 
 import Data.List ( isSuffixOf )
+import Data.Char (isDigit)
+
+isStringNumb :: String -> Bool
+isStringNumb = all isDigit
 
 chunks :: Int -> [a] -> [[a]]
 chunks _ [] = []

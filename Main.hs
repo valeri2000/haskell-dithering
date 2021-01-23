@@ -1,7 +1,7 @@
 module Main where
 
 import MyTypes ()
-import Utils ( grayscale, isPBM, isPGM, isPPM ) 
+import Utils (isStringNumb,  grayscale, isPBM, isPGM, isPPM ) 
 import IOFunctions
     ( readPBM,
       readPGM,
@@ -32,8 +32,8 @@ inputHandler = do
     putStrLn "Enter wanted algorithm number: "
     algoNumber <- getLine
 
-    if read algoNumber > 10 
-        then putStrLn "Invalid algorithm!"
+    if not (isStringNumb algoNumber) || read algoNumber > 10 
+        then putStrLn "Invalid input! You should enter a number in the range [0; 10]!"
             else
                 do
                 putStrLn "\nEnter output file name (same extension as input): "
