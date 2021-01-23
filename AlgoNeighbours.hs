@@ -2,8 +2,8 @@ module AlgoNeighbours where
 
 import MyTypes ( Error(Error) )
 
-invalidErrors :: [Error]
-invalidErrors = []
+trivialErrors :: [Error]
+trivialErrors = [Error 0 1 1 1]
 
 floydSteinbergErrors :: [Error]
 floydSteinbergErrors = [Error 0 1 7 16,

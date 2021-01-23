@@ -5,18 +5,10 @@ import BaseDithering
 import OrderedDithering
 import BayerMatrices
 import AlgoNeighbours
-    ( floydSteinbergErrors,
-      jarvisJudiceNinkeErrors,
-      stuckiErrors,
-      atkinsonErrors,
-      burkesErrors,
-      sierraErrors,
-      sierraTwoRowErrors,
-      sierraLiteErrors,
-      invalidErrors )
 
 algoNames :: String
-algoNames = "1 - Floyd-Steinberg Dithering\n\
+algoNames = "0 - Neighbour Diffusion Dithering\n\
+            \1 - Floyd-Steinberg Dithering\n\
             \2 - Jarvis, Judice, and Ninke Dithering\n\
             \3 - Stucki Dithering\n\
             \4 - Atkinson Dithering\n\
@@ -29,6 +21,7 @@ algoNames = "1 - Floyd-Steinberg Dithering\n\
 
 execAlgo :: Int -> Image -> Image
 execAlgo x img
+    | x == 0 = generalDithering img trivialErrors
     | x == 1 = generalDithering img floydSteinbergErrors 
     | x == 2 = generalDithering img jarvisJudiceNinkeErrors  
     | x == 3 = generalDithering img stuckiErrors   
