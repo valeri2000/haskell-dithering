@@ -16,16 +16,16 @@ import AlgoNeighbours
       trivialErrors )
 
 algoNames :: String
-algoNames = "0 - Neighbour Diffusion Dithering\n\
-            \1 - Floyd-Steinberg Dithering\n\
-            \2 - Jarvis, Judice, and Ninke Dithering\n\
-            \3 - Stucki Dithering\n\
-            \4 - Atkinson Dithering\n\
-            \5 - Burkes Dithering\n\
-            \6 - Sierra Dithering\n\
-            \7 - Two-Row Sierra Dithering\n\
-            \8 - Sierra Lite Dithering\n\
-            \9 - Bayer 4x4 Dithering\n\
+algoNames = "0  - Neighbour Diffusion Dithering\n\
+            \1  - Floyd-Steinberg Dithering\n\
+            \2  - Jarvis, Judice, and Ninke Dithering\n\
+            \3  - Stucki Dithering\n\
+            \4  - Atkinson Dithering\n\
+            \5  - Burkes Dithering\n\
+            \6  - Sierra Dithering\n\
+            \7  - Two-Row Sierra Dithering\n\
+            \8  - Sierra Lite Dithering\n\
+            \9  - Bayer 4x4 Dithering\n\
             \10 - Bayer 8x8 Dithering\n"
 
 execAlgo :: Int -> Image -> Image
