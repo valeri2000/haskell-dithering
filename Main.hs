@@ -1,19 +1,19 @@
 module Main where
 
 import MyTypes ()
-import Utils ( isPPM, isPBM, isPGM, grayscale )
+import Utils ( grayscale, isPBM, isPGM, isPPM ) 
 import IOFunctions
-    ( readPPM,
+    ( readPBM,
       readPGM,
-      readPBM,
-      saveImagePPM,
+      readPPM,
       saveImagePBM,
-      saveImagePGM )
-import BaseDithering ( generalDithering )
+      saveImagePGM,
+      saveImagePPM )
+import BaseDithering ()
 import AlgoNeighbours ()
-import AlgoHandler
-import OrderedDithering
-import BayerMatrices
+import AlgoHandler ( algoNames, execAlgo )
+import OrderedDithering ()
+import BayerMatrices ()
 
 -- '<-' for io things
 -- other pure things 'let'

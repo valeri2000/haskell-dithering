@@ -1,7 +1,8 @@
 module OrderedDithering where
 
 import MyTypes
-import Utils
+    ( Image(Image, pixels, rows, cols), Pixel(Pixel, r) )
+import Utils ( chunks )
 
 orderedDithering :: Image -> [[Double]] -> Int -> Image
 orderedDithering img matrix modMatrix = Image (rows img) (cols img) $ help (pixels img) matrix 0 0 (rows img) (cols img) []

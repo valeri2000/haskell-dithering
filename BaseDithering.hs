@@ -3,11 +3,7 @@ module BaseDithering where
 import MyTypes
     ( Error, Image(Image, rows, pixels, cols), Pixel(Pixel, r) )
 import Utils
-    ( chunks,
-      clamp0255,
-      makeMatrix,
-      updateErrors,
-      updateMatrix)
+    ( chunks, clamp0255, makeMatrix, updateErrors, updateMatrix )
 
 generalDithering :: Image -> [Error] -> Image
 generalDithering img neigh = Image (rows img) (cols img) $ help 0 0 neigh (head $ pixels img) (tail $ pixels img) [] (makeMatrix 3 (cols img))

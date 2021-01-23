@@ -1,10 +1,19 @@
 module AlgoHandler where
 
-import MyTypes
-import BaseDithering
-import OrderedDithering
-import BayerMatrices
+import MyTypes ( Image(NullImage) )
+import BaseDithering ( generalDithering )
+import OrderedDithering ( orderedDithering )
+import BayerMatrices ( bayer4x4, bayer8x8 )
 import AlgoNeighbours
+    ( atkinsonErrors,
+      burkesErrors,
+      floydSteinbergErrors,
+      jarvisJudiceNinkeErrors,
+      sierraErrors,
+      sierraLiteErrors,
+      sierraTwoRowErrors,
+      stuckiErrors,
+      trivialErrors )
 
 algoNames :: String
 algoNames = "0 - Neighbour Diffusion Dithering\n\
