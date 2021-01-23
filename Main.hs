@@ -11,7 +11,7 @@ import IOFunctions
       saveImagePGM )
 import BaseDithering ( generalDithering )
 import AlgoNeighbours ()
-import AlgoHandler ( algoNames, getMatchingError)
+import AlgoHandler
 import OrderedDithering
 import BayerMatrices
 
@@ -32,26 +32,22 @@ inputHandler = do
     putStrLn "Enter wanted algorithm number: "
     algoNumber <- getLine
 
-    let algoErrors = getMatchingError (read algoNumber)
-
-    if null algoErrors
+    if read algoNumber > 10 
         then putStrLn "Invalid algorithm!"
             else
                 do
                 putStrLn "\nEnter output file name (same extension as input): "
                 outputName <- getLine
 
-                saveImagePPM outputName $ orderedDithering (grayscale $ readPPM $ lines content) bayer4x4 4
-
-                -- if isPPM fileName && isPPM outputName
-                --     then saveImagePPM outputName $ generalDithering (grayscale $ readPPM $ lines content) algoErrors
-                --         else 
-                --             if isPGM fileName && isPGM outputName
-                --                 then saveImagePGM outputName $ generalDithering (grayscale $ readPGM $ lines content) algoErrors
-                --                 else 
-                --                 if isPBM fileName && isPBM outputName
-                --                     then saveImagePBM outputName $ generalDithering (grayscale $ readPBM $ lines content) algoErrors
-                --                     else putStrLn "Invalid output file name!"
+                if isPPM fileName && isPPM outputName
+                    then saveImagePPM outputName $ execAlgo (read algoNumber) (grayscale $ readPPM $ lines content) 
+                        else 
+                            if isPGM fileName && isPGM outputName
+                                then saveImagePGM outputName $ execAlgo (read algoNumber) (grayscale $ readPGM $ lines content) 
+                                else 
+                                if isPBM fileName && isPBM outputName
+                                    then saveImagePBM outputName $ execAlgo (read algoNumber) (grayscale $ readPBM $ lines content) 
+                                    else putStrLn "Invalid output file name!"
                 
                 putStrLn "\nSuccess! Check output file!"
 
