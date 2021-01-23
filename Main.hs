@@ -14,6 +14,7 @@ import AlgoNeighbours ()
 import AlgoHandler ( algoNames, execAlgo )
 import OrderedDithering ()
 import BayerMatrices ()
+import Control.Exception
 
 -- '<-' for io things
 -- other pure things 'let'
@@ -40,16 +41,17 @@ inputHandler = do
                 outputName <- getLine
 
                 if isPPM fileName && isPPM outputName
-                    then saveImagePPM outputName $ execAlgo (read algoNumber) (grayscale $ readPPM $ lines content) 
+                    then catch (saveImagePPM outputName $ execAlgo (read algoNumber) (grayscale $ readPPM $ lines content)) handler
                         else 
                             if isPGM fileName && isPGM outputName
-                                then saveImagePGM outputName $ execAlgo (read algoNumber) (grayscale $ readPGM $ lines content) 
+                                then catch (saveImagePGM outputName $ execAlgo (read algoNumber) (grayscale $ readPGM $ lines content)) handler
                                 else 
                                 if isPBM fileName && isPBM outputName
-                                    then saveImagePBM outputName $ execAlgo (read algoNumber) (grayscale $ readPBM $ lines content) 
+                                    then catch (saveImagePBM outputName $ execAlgo (read algoNumber) (grayscale $ readPBM $ lines content)) handler
                                     else putStrLn "Invalid output file name!"
-                
-                putStrLn "\nSuccess! Check output file!"
+    where
+        handler :: SomeException -> IO ()
+        handler ex = putStrLn "\nInvalid content format in input image!"
 
 main :: IO ()
 main = inputHandler
