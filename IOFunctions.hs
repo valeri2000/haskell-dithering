@@ -38,8 +38,8 @@ readPBM content = help content 0 0 []
             | null content = if rows > 0 && cols > 0 then Image rows cols (chunks cols pixelList) else NullImage
             | length curr == 0 = help left rows cols pixelList
             | curr == "P1" = help left rows cols pixelList
-            | cols == 0 = help (tail left) (fst $ stringToSize curr) (snd $ stringToSize curr) pixelList
-            | otherwise = help left rows cols (pixelList ++ [whiteBlackToPixel (read numb) | numb <- words curr])
+            | cols == 0 = help left (fst $ stringToSize curr) (snd $ stringToSize curr) pixelList
+            | otherwise = help left rows cols (pixelList ++ [whiteBlackToPixel (read [numb]) | numb <- curr])
             where curr = head content
                   left = tail content
 
