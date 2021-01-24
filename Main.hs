@@ -37,15 +37,33 @@ inputHandler = do
           putStrLn "\nEnter output file name (same extension as input): "
           outputName <- getLine
 
-          if isPPM fileName && isPPM outputName
-            then catch (saveImagePPM outputName $ execAlgo (read algoNumber) (grayscale $ readPPM $ lines content)) handler
+          if not (isPPM outputName) && not (isPBM outputName) && not (isPGM outputName)
+            then putStrLn "Invalid output file name!"
             else
-              if isPGM fileName && isPGM outputName
-                then catch (saveImagePGM outputName $ execAlgo (read algoNumber) (grayscale $ readPGM $ lines content)) handler
+              if isPPM fileName
+                then
+                  if isPPM outputName
+                    then catch (saveImagePPM outputName $ execAlgo (read algoNumber) (grayscale $ readPPM $ lines content)) handler
+                    else
+                      if isPBM outputName
+                        then catch (saveImagePBM outputName $ execAlgo (read algoNumber) (grayscale $ readPPM $ lines content)) handler
+                        else catch (saveImagePGM outputName $ execAlgo (read algoNumber) (grayscale $ readPPM $ lines content)) handler
                 else
-                  if isPBM fileName && isPBM outputName
-                    then catch (saveImagePBM outputName $ execAlgo (read algoNumber) (grayscale $ readPBM $ lines content)) handler
-                    else putStrLn "Invalid output file name!"
+                  if isPGM fileName
+                    then
+                      if isPPM outputName
+                        then catch (saveImagePPM outputName $ execAlgo (read algoNumber) (grayscale $ readPGM $ lines content)) handler
+                        else
+                          if isPBM outputName
+                            then catch (saveImagePBM outputName $ execAlgo (read algoNumber) (grayscale $ readPGM $ lines content)) handler
+                            else catch (saveImagePGM outputName $ execAlgo (read algoNumber) (grayscale $ readPGM $ lines content)) handler
+                    else
+                      if isPPM outputName
+                        then catch (saveImagePPM outputName $ execAlgo (read algoNumber) (grayscale $ readPBM $ lines content)) handler
+                        else
+                          if isPBM outputName
+                            then catch (saveImagePBM outputName $ execAlgo (read algoNumber) (grayscale $ readPBM $ lines content)) handler
+                            else catch (saveImagePGM outputName $ execAlgo (read algoNumber) (grayscale $ readPBM $ lines content)) handler
   where
     handler :: SomeException -> IO ()
     handler ex = putStrLn "\nError while reading file! Invalid input image format!"
