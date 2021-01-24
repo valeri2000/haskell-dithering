@@ -84,7 +84,7 @@ makeMatrix x y = [[0 | y1 <- [0 .. y]] | x1 <- [0 .. x]]
 
 updateMatrix :: [[a]] -> a -> Int -> Int -> [[a]]
 updateMatrix m value r c
-  | r >= length m = error "Hey"
+  | r >= length m || c >= (length $ head m) = m
   | otherwise =
     take r m
       ++ [take c (m !! r) ++ [value] ++ drop (c + 1) (m !! r)]
