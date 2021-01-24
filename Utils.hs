@@ -85,10 +85,10 @@ makeMatrix x y = [[0 | y1 <- [0 .. y]] | x1 <- [0 .. x]]
 updateMatrix :: [[a]] -> a -> Int -> Int -> [[a]]
 updateMatrix m value r c
   | r >= length m = error "Hey"
-  | otherwise
-  = take r m
-    ++ [take c (m !! r) ++ [value] ++ drop (c + 1) (m !! r)]
-    ++ drop (r + 1) m
+  | otherwise =
+    take r m
+      ++ [take c (m !! r) ++ [value] ++ drop (c + 1) (m !! r)]
+      ++ drop (r + 1) m
 
 updateErrors :: [[Int]] -> [Error] -> Int -> Int -> Int -> [[Int]]
 updateErrors matrix [] value x y = matrix
