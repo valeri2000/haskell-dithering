@@ -12,10 +12,6 @@ isStringNumb :: String -> Bool
 isStringNumb = all isDigit
 
 chunks :: Int -> [a] -> [[a]]
-asdasdasd
-asdasd
-asdasd
-asdasdadasddas
 chunks _ [] = []
 chunks n xs = ys : chunks n zs
   where
